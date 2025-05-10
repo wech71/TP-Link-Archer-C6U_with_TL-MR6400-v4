@@ -1,5 +1,5 @@
-# TP-Link Router API
-Python package for API access and management for TP-Link Routers. See [Supported routers](#supports)
+# TP-Link Router API (supports also Mercusys Router)
+Python package for API access and management for TP-Link and Mercusys Routers. See [Supported routers](#supports)
 
 [![Pypi](https://img.shields.io/pypi/v/tplinkrouterc6u)](https://pypi.org/project/tplinkrouterc6u/)
 [![Downloads](https://static.pepy.tech/personalized-badge/tplinkrouterc6u?period=total&units=international_system&left_color=grey&right_color=orange&left_text=Downloads)](https://pypi.org/project/tplinkrouterc6u/)
@@ -22,9 +22,12 @@ from tplinkrouterc6u import (
     TplinkC1200Router,
     TplinkC5400XRouter,
     TPLinkMRClient,
+    TPLinkVRClient,
     TPLinkEXClient,
     TPLinkXDRClient,
     TPLinkDecoClient,
+    TplinkC80Router,
+    TplinkWDRRouter,
     Connection
 )
 from logging import Logger
@@ -136,6 +139,7 @@ or you have TP-link C5400X or similar router you need to get web encrypted passw
 | wan_ipv4_uptime | Internet Uptime | int, None |
 | mem_usage | Memory usage in percentage between 0 and 1 | float, None |
 | cpu_usage | CPU usage in percentage between 0 and 1 | float, None |
+| conn_type | Connection type | str, None |
 | devices | List of all connectedd devices | list[[Device](#device)] |
 
 ### <a id="device">Device</a>
@@ -152,6 +156,7 @@ or you have TP-link C5400X or similar router you need to get web encrypted passw
 | down_speed | download speed | int, None |
 | up_speed | upload speed | int, None |
 | signal | Signal strength | int, None |
+| active | Is active device | bool |
 
 ### <a id="IPv4Reservation">IPv4Reservation</a>
 | Field | Description | Type |
@@ -250,15 +255,19 @@ or you have TP-link C5400X or similar router you need to get web encrypted passw
 - VPN.PPTP_VPN
 
 ## <a id="supports">Supported routers</a>
-### Fully tested Hardware Versions
+- [TP-LINK routers](#tplink)
+- [MERCUSYS routers](#mercusys)
+### <a id="tplink">TP-LINK routers</a>
+- Archer A6 V2.0
 - Archer A7 V5
+- Archer A8 (1.0, 2.20)
 - Archer A9 V6
+- Archer A20 v1.0
 - Archer AX10 v1.0
 - Archer AX12 v1.0
-- Archer AX20 v1.0
-- Archer AX20 v3.0
+- Archer AX20 (v1.0, v3.0)
 - Archer AX21 (v1.20, v3.0)
-- Archer AX23 v1.0
+- Archer AX23 (v1.0, v1.2)
 - Archer AX50 v1.0
 - Archer AX53 v2
 - Archer AX55 (v1.0, V1.60, v4.0)
@@ -268,17 +277,23 @@ or you have TP-link C5400X or similar router you need to get web encrypted passw
 - Archer AX90 V1.20
 - Archer AXE75 V1
 - Archer AXE16000
+- Archer AX1800
 - Archer AX3000 V1
 - Archer AX6000 V1
 - Archer AX11000 V1
+- Archer BE400 v1.0
+- Archer BE550 v1.0
 - Archer BE800 v1.0
 - Archer BE805 v1.0
 - Archer BE3600 1.6
 - Archer C1200 (v1.0, v2.0)
 - Archer C2300 (v1.0, v2.0)
-- Archer C6 (v2.0, v3.0)
+- Archer C6 (v2.0, v3.0, 4.0)
 - Archer C6U v1.0
 - Archer C7 (v4.0, v5.0)
+- Archer C24 (1.0, 2.0)
+- Archer C60 v2.0
+- Archer C80 (1.0, 2.20)
 - Archer C5400X V1
 - Archer GX90 v1.0
 - Archer MR200 (v5, v5.3, v6.0)
@@ -286,7 +301,10 @@ or you have TP-link C5400X or similar router you need to get web encrypted passw
 - Archer MR600 (v1, v2, v3)
 - Archer VR600 v3
 - Archer VR900v
+- Archer VR1200v v1
 - Archer VR2100v v1
+- Archer VX1800v v1.0
+- BE11000 2.0
 - Deco M4 2.0
 - Deco M4R 2.0
 - Deco M5 v3
@@ -295,9 +313,11 @@ or you have TP-link C5400X or similar router you need to get web encrypted passw
 - Deco P7
 - Deco X20
 - Deco X50 v1.3
+- Deco X55 1.0
 - Deco X60 V3
 - Deco X90
 - Deco XE75 (v1.0, v2.0)
+- Deco XE75PRO (v3.0)
 - EX511 v2.0
 - HX510 v1.0
 - NX510v v1.0
@@ -306,26 +326,17 @@ or you have TP-link C5400X or similar router you need to get web encrypted passw
 - TL-MR105
 - TL-MR6400 (v5, v5.3)
 - TL-MR6500v
+- TL-WA1201 3.0
 - TL-WA3001 v1.0
 - TL-XDR3010 V2
+- TL-WDR3600 V1
+- XC220-G3v v2.30
+### <a id="mercusys">MERCUSYS routers</a>
+- MR47BE v1.0
+- MR50G 1.0
+- H60XR 1.0
 
-### Not fully tested Hardware Versions
-- AD7200 V2
-- Archer A6 (V2 and V3)
-- Archer A10 (V1 and V2)
-- Archer A20 (V1, V3)
-- Archer C8 (V3 and V4)
-- Archer C9 (V4 and V5)
-- Archer C59 V2
-- Archer C90 V6
-- Archer C900 V1
-- Archer C1200 V3
-- Archer C1900 V2
-- Archer C4000 (V2 and V3)
-- Archer C5400 V2
-- TL-WR1043N V5
-
-Please let me know if you have tested integration with one of this or other model. Open an issue with info about router's model, hardware and firmware versions.
+Please let me know if you have tested integration with any other model. Open an issue with info about router's model, hardware and firmware versions.
 
 ## <a id="add_support">Adding Support For More Models</a>
 Guidelines [CONTRIBUTING.md](https://github.com/AlexandrErohin/TP-Link-Archer-C6U/blob/master/CONTRIBUTING.md)

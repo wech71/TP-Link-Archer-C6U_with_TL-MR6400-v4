@@ -310,6 +310,7 @@ X_TP_TotalPacketsReceived=467
         self.assertEqual(status.wan_ipv4_addr, '192.168.30.55')
         self.assertEqual(status.lan_ipv4_addr, '192.168.4.1')
         self.assertEqual(status.wan_ipv4_gateway, '192.168.30.1')
+        self.assertEqual(status.conn_type, 'ipoe_1_d')
         self.assertEqual(status.wired_total, 0)
         self.assertEqual(status.wifi_clients_total, 1)
         self.assertEqual(status.guest_clients_total, 0)
@@ -599,6 +600,30 @@ DNSServers=7.7.7.7,2.2.2.2
         self.assertEqual(result.lan_ipv4_dhcp_enable, True)
         self.assertEqual(result.remote, None)
 
+    def test_get_ipv4_status_empty(self) -> None:
+        response = '''
+[1,1,0,0,0,0]0
+[1,1,0,0,0,0]1
+[1,1,1,0,0,0]2
+[2,1,1,0,0,0]2
+[error]0
+
+'''
+
+        class TPLinkMRClientTest(TPLinkMRClient):
+            def _request(self, url, method='POST', data_str=None, encrypt=False):
+                return 200, response
+
+        client = TPLinkMRClientTest('', '')
+        result = client.get_ipv4_status()
+
+        self.assertIsInstance(result, IPv4Status)
+        self.assertEqual(result.lan_macaddr, '00-00-00-00-00-00')
+        self.assertEqual(result.wan_ipv4_conntype, '')
+        self.assertEqual(result.lan_ipv4_ipaddr, '0.0.0.0')
+        self.assertEqual(result.lan_ipv4_netmask, '0.0.0.0')
+        self.assertEqual(result.lan_ipv4_dhcp_enable, False)
+
     def test_get_ipv4_status_one_wlan(self) -> None:
         response = '''
 [1,1,0,0,0,0]0
@@ -709,7 +734,6 @@ ussdStatus=1
 
         class TPLinkMRClientTest(TPLinkMRClient):
             def _request(self, url, method='POST', data_str=None, encrypt=False):
-                nonlocal check_url, check_data
                 check_url.append(url)
                 check_data.append(data_str)
                 return 200, responses.pop(0)
@@ -751,7 +775,6 @@ ussdStatus=2
 
         class TPLinkMRClientTest(TPLinkMRClient):
             def _request(self, url, method='POST', data_str=None, encrypt=False):
-                nonlocal check_url, check_data
                 check_url.append(url)
                 check_data.append(data_str)
                 return 200, responses.pop(0)

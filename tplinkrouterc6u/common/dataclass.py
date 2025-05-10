@@ -25,6 +25,7 @@ class Device:
         self.down_speed: int | None = None
         self.up_speed: int | None = None
         self.signal: int | None = None
+        self.active: bool = True
 
     @property
     def macaddr(self):
@@ -68,6 +69,7 @@ class Status:
         self.wan_ipv4_uptime: int | None = None
         self.mem_usage: float | None = None
         self.cpu_usage: float | None = None
+        self.conn_type: str | None = None
         self.devices: list[Device] = []
 
     @property
@@ -167,7 +169,7 @@ class IPv4Status:
         self._wan_macaddr: EUI48
         self._wan_ipv4_ipaddr: IPv4Address | None = None
         self._wan_ipv4_gateway: IPv4Address | None = None
-        self.wan_ipv4_conntype: str
+        self._wan_ipv4_conntype: str
         self._wan_ipv4_netmask: IPv4Address | None = None
         self._wan_ipv4_pridns: IPv4Address
         self._wan_ipv4_snddns: IPv4Address
@@ -188,6 +190,10 @@ class IPv4Status:
     @property
     def wan_ipv4_ipaddr(self):
         return str(self._wan_ipv4_ipaddr) if self._wan_ipv4_ipaddr else None
+
+    @property
+    def wan_ipv4_conntype(self):
+        return self._wan_ipv4_conntype if hasattr(self, '_wan_ipv4_conntype') else ''
 
     @property
     def wan_ipv4_ipaddress(self):

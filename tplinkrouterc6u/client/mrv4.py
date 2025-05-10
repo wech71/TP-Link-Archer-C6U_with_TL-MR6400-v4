@@ -1,3 +1,4 @@
+import array
 from base64 import b64encode
 from hashlib import md5
 from re import search
@@ -145,7 +146,7 @@ class TPLinkMRClientV4(TPLinkMRClientBase):
 
         data =  ''.join(act_data)
 
-        url = self._get_url('cgi?' + '&'.join(act_types), include_ts=False)
+        url = self._get_url('cgi?' + "&".join(act_types) )
         (code, response) = self._request(url, data_str=data, encrypt=False)
 
         if code != 200:
@@ -157,7 +158,15 @@ class TPLinkMRClientV4(TPLinkMRClientBase):
         result = self._merge_response(response)
 
         return response, result.get('0') if len(result) == 1 and result.get('0') else result
+     
+   def _get_url(self, endpoint: str) -> str:
+        # format params into a string
 
+        # format url
+        return '{}/{}'.format(
+            self.host,
+            endpoint            
+        )
 
    def logout(self) -> None:
         '''
@@ -185,7 +194,7 @@ class TPLinkMRClientV4(TPLinkMRClientBase):
         Return value:
             return code (int)
         '''
-        result = search(r'cgi\[.*\]\nerr\[.*\];', response_text)
+        result = search(r'\[cgi\](\d+)\n\[error\](\d+)', response_text)
         assert result is not None
         assert result.group(1).isnumeric()
 

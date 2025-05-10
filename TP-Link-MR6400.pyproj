@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9e0099ca-bd10-4201-9808-88ad525f95ea}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>xpsmstest.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>MSBuild|env1|$(MSBuildProjectFullPath)</InterpreterId>
+    <TestFramework>Pytest</TestFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="requirements.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="setup.py" />
+    <Compile Include="test\test_client_c1200.py" />
+    <Compile Include="test\test_client_c6u.py" />
+    <Compile Include="test\test_client_deco.py" />
+    <Compile Include="test\test_client_ex.py" />
+    <Compile Include="test\test_client_mr.py" />
+    <Compile Include="test\test_client_xdr.py" />
+    <Compile Include="test\__init__.py" />
+    <Compile Include="tplinkrouterc6u\client\c1200.py" />
+    <Compile Include="tplinkrouterc6u\client\c5400x.py" />
+    <Compile Include="tplinkrouterc6u\client\c6u.py" />
+    <Compile Include="tplinkrouterc6u\client\c6v4.py" />
+    <Compile Include="tplinkrouterc6u\client\deco.py" />
+    <Compile Include="tplinkrouterc6u\client\ex.py" />
+    <Compile Include="tplinkrouterc6u\client\mrv4.py" />
+    <Compile Include="tplinkrouterc6u\client\mr.py" />
+    <Compile Include="tplinkrouterc6u\client\xdr.py" />
+    <Compile Include="tplinkrouterc6u\client\__init__.py" />
+    <Compile Include="tplinkrouterc6u\client_abstract.py" />
+    <Compile Include="tplinkrouterc6u\common\dataclass.py" />
+    <Compile Include="tplinkrouterc6u\common\encryption.py" />
+    <Compile Include="tplinkrouterc6u\common\exception.py" />
+    <Compile Include="tplinkrouterc6u\common\helper.py" />
+    <Compile Include="tplinkrouterc6u\common\package_enum.py" />
+    <Compile Include="tplinkrouterc6u\common\__init__.py" />
+    <Compile Include="tplinkrouterc6u\provider.py" />
+    <Compile Include="tplinkrouterc6u\__init__.py" />
+    <Compile Include="xpsmstest.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="test" />
+    <Folder Include="tplinkrouterc6u" />
+    <Folder Include="tplinkrouterc6u\client" />
+    <Folder Include="tplinkrouterc6u\common" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env1\">
+      <Id>env1</Id>
+      <Version>3.10</Version>
+      <Description>env1 (Python 3.10 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>

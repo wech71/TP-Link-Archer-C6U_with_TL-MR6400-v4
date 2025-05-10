@@ -14,3 +14,6 @@ goodqueries.txt
 badqueries.txt
 mac_lookup.txt
 *.zip
+/.vs
+/env
+/env1
